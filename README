@@ -8,6 +8,23 @@ Jin Nguyen jwin@csu.fullerton.edu
 Language used C++
 – How to execute your program.
 type in make without quotes
+then use 
+Your program shall be called cipher and shall be executed as:
+./cipher <CIPHER NAME> <KEY> <ENC/DEC> <INPUTFILE> <OUTPUT FILE>
+where
+• CIPHER NAME: Is the name of the cipher. Valid names are:
+– PLF: Playfair
+– RTS: Row Transposition
+– RFC: Railfence
+– VIG: Vigenre
+– CES: Caesar
+– MAC: Monoalphabetic Cipher (graduate students only)
+• KEY: the encryption key to use.
+1
+• ENC/DEC: whether to encrypt or decrypt, respectively.
+• INPUT FILE: the file from which to read the input.
+• OUTPUT FILE: the file to which the output shall be written.
+
 – Whether you implemented the extra credit.
 No extra credit
 – Anything special about your submission that we should take note of.
