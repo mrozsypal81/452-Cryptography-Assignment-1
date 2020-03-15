@@ -19,8 +19,8 @@ string RowTransposition::encrypt(const string& plaintext){
 	int plaintextlength = plaintext.length();
 	char matrix[maxrows][maxcolumns];
 	int i = 0;
-	for (int r=0; r<maxrows; r++){
-		for (int c=0; c<maxcolumns; c++){
+	for (int r = 0; r < maxrows; r++){
+		for (int c = 0; c < maxcolumns; c++){
 			if (i < plaintextlength){
 				matrix[r][c] = plaintext[i];
 				i++;
@@ -30,8 +30,8 @@ string RowTransposition::encrypt(const string& plaintext){
 			}
 		}
 	}
-	for(i=0; i<maxcolumns; i++){
-		for(int r = 0; r<maxrows; r++){
+	for (i = 0; i < maxcolumns; i++){
+		for(int r = 0; r < maxrows; r++){
 			ciphertext.push_back(matrix[r][secretkey[i]-'1']);
 		}
 	}
@@ -45,13 +45,13 @@ string RowTransposition::decrypt(const string& ciphertext){
 	char matrix[maxrows][maxcolumns];
 	int i = 0;
 	for (int c = 0; c < maxcolumns; c++){
-		for (int r = 0; r< maxrows; r++){
+		for (int r = 0; r < maxrows; r++){
 			matrix[r][secretkey[c]-'1'] = ciphertext[i];
 			i++;
 		}
 	}
-	for (int r=0; r<maxrows; r++){
-		for (int c=0; c<maxcolumns; c++){
+	for (int r = 0; r < maxrows; r++){
+		for (int c = 0; c < maxcolumns; c++){
 			plaintext.push_back(matrix[r][c]);
 		}
 	}
