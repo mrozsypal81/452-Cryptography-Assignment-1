@@ -1,45 +1,28 @@
 #include <iostream>
 #include <string>
-#include<math.h>
+#include <math.h>
+#include "caesarcipher.h"
+
 using namespace std;
-string caesarCipher(string, int, char);
 
-int main()
+bool Caesar::setKey(const string& key)
 {
+    int keytemp = stoi(key);
 
-    string input;
-    string output;
-    char mode;
-    int key;
-
-    cout << "Enter input: ";
-    getline(cin,input);
-
-    cout << "\nEnter key: ";
-    cin >> key;
-
-    cout << "Choose a mode(e/d): ";
-    cin >> mode;
-
-    output = caesarCipher(input,key, mode);
-
-    cout << output << endl;
-
-
+    //cout << "key is a number" << key << endl;
+    secretkey = keytemp;
+    return true;
+    
 }
 
-string caesarCipher(string t, int k, char m)
+string Caesar::encrypt(const string& input)
 {
-
+    cout << secretkey << endl;
     string output;
-
-    //encypt
-    if (m == 'e')
-    {
-        for (int i = 0; i < t.length(); i++)
+    for (int i = 0; i < input.length(); i++)
         {
-            char temp = t.at(i);
-            for (int j = 0; j < k; j++)
+            char temp = input.at(i);
+            for (int j = 0; j < secretkey; j++)
             {
                 if(isalpha(temp))
                 {
@@ -59,15 +42,17 @@ string caesarCipher(string t, int k, char m)
             }
             
         }
+
+        return output;
     }
 
-    //decrypt
-    if (m == 'd')
+string Caesar::decrypt(const string& input)
+{
+    string output;
+    for (int i = 0; i < input.length(); i++)
     {
-        for (int i = 0; i < t.length(); i++)
-        {
-            char temp = t.at(i);
-            for (int j = 0; j < k; j++)
+            char temp = input.at(i);
+            for (int j = 0; j < secretkey; j++)
             {
                 if(isalpha(temp))
                 {
@@ -86,10 +71,8 @@ string caesarCipher(string t, int k, char m)
                 output += temp;
             }
             
-        }
-        
     }
-
-    return output;
-
+   return output;      
 }
+
+   

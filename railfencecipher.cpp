@@ -1,50 +1,35 @@
 #include <iostream>
 #include <string>
+#include "railfencecipher.h"
 using namespace std;
-string railfenceCipher(string, int, char);
 
-int main()
+
+bool Railfence :: setKey(const string& key)
 {
-    string input;
-    string output;
-    char mode;
-    int key;
 
-    cout << "Enter input: ";
-    getline(cin, input);
+    int tempkey = stoi(key);
+    secretkey = tempkey;
+    return true;
 
-    cout << "\nEnter key: ";
-    cin >> key;
-
-    cout << "Choose a mode(e/d): ";
-    cin >> mode;
-
-    output = railfenceCipher(input, key, mode);
-
-    cout << output << endl;
-
-    return 0;
 }
 
-string railfenceCipher(string text, int key, char mode)
+string Railfence :: encrypt(const string& plaintext)
 {
     string output;
-    char **table;
-    char empty = ' ';
-    int len = round(text.length() / key);
+    int len = round(plaintext.length() / secretkey);
     int counter = 0;
-
+    char empty = ' ';
     len++;
 
-    //create table
-    table = new char *[key];
-    for (int i = 0; i < key; ++i)
+     //create table
+    char **table = new char *[secretkey];
+    for (int i = 0; i < secretkey; ++i)
     {
         table[i] = new char[len];
     }
 
     //empty the table
-    for (int row = 0; row < key; row++)
+    for (int row = 0; row < secretkey; row++)
     {
         for (int col = 0; col < len; col++)
         {
@@ -53,33 +38,31 @@ string railfenceCipher(string text, int key, char mode)
     }
 
     //encrypt
-    if (mode == 'e')
+    //fill table with inputs
+    for (int col = 0; col < len; col++)
     {
-        //fill table with inputs
-        for (int col = 0; col < len; col++)
+        for (int row = 0; row < secretkey; row++)
         {
-            for (int row = 0; row < key; row++)
+            if (counter < plaintext.length())
             {
-                if (counter < text.length())
+                char temp = plaintext.at(counter);
+                if (isalpha(temp))
                 {
-                    char temp = text.at(counter);
-                    if (isalpha(temp))
-                    {
-                        table[row][col] = temp;
-                        counter++;
-                    }
-                    else
-                    {
-                        counter++;
-                        row--;
-                    }
+                    table[row][col] = temp;
+                    counter++;
+                }
+                else
+                {
+                    counter++;
+                    row--;
                 }
             }
         }
+    }
 
         //generate cipher text
         
-        for (int row = 0; row < key; row++)
+        for (int row = 0; row < secretkey; row++)
         {
             for (int col = 0; col < len; col++)
             {
@@ -93,19 +76,68 @@ string railfenceCipher(string text, int key, char mode)
         }
 
         return output;
+}
+string Railfence :: decrypt(const string& ciphertext)
+{
+    string output;
+    string ciphertextcp = ciphertext;
+    int len = round(ciphertext.length() / secretkey);
+    int counter = 0;
+    len++;
+    char empty = ' ';
+    int *lettersPerRowArr;
+    lettersPerRowArr = new int[secretkey];
+    int lettersPerRow = floor(ciphertext.length()/secretkey);
+    int leftover = ciphertext.length() % secretkey;
+
+    //remove all blank space from input
+    for(int i = 0; i < ciphertextcp.length();i++)
+    {
+        if(ciphertextcp.at(i)==' ')
+        {
+            ciphertextcp.erase(i,1);
+            i--;
+        }
     }
 
-    //decrypt
-    if (mode == 'd')
+    for(int i = 0;i < secretkey; i++)
     {
-        //fill the table
-        for (int row = 0; row < key; row++)
+        if(leftover != 0)
         {
-            for (int col = 0; col < len; col++)
+            lettersPerRowArr[i] = lettersPerRow+1;
+            leftover--;
+        }
+        else
+        {
+            lettersPerRowArr[i] = lettersPerRow;
+        }
+        cout << lettersPerRowArr[i] << endl;
+        
+    }
+     //create table
+    char **table = new char *[secretkey];
+    for (int i = 0; i < secretkey; ++i)
+    {
+        table[i] = new char[len];
+    }
+
+    //empty the table
+    for (int row = 0; row < secretkey; row++)
+    {
+        for (int col = 0; col < len; col++)
+        {
+            table[row][col] = empty;
+        }
+    }
+
+    //fill the table
+        for (int row = 0; row < secretkey; row++)
+        {
+            for (int col = 0; col < lettersPerRowArr[row]; col++)
             {
-                if (counter < text.length())
+                if (counter < ciphertext.length())
                 {
-                    char temp = text.at(counter);
+                    char temp = ciphertext.at(counter);
                     if (isalpha(temp))
                     {
                         table[row][col] = temp;
@@ -121,11 +153,10 @@ string railfenceCipher(string text, int key, char mode)
             }
             cout << endl;
         }
-
         //generate plaintext
         for (int col = 0; col < len; col++)
         {
-            for (int row = 0; row < key; row++)
+            for (int row = 0; row < secretkey; row++)
             {
                 if (isalpha(table[row][col]))
                 {
@@ -133,6 +164,7 @@ string railfenceCipher(string text, int key, char mode)
                 }
             }
         }
+
         return output;
-    }
 }
+
