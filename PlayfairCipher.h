@@ -1,20 +1,20 @@
-#ifndef CAESARCIPHER_H
-#define Caesarcihper_H
-
-#include<iostream>
+#ifndef PLAYFAIRCIPHER_H
+#define PLAYFAIRCIPHER_H
+#include "CipherInterface.h"
+#include <iostream>
 #include<string>
 #include<math.h>
-#include "CipherInterface.h"
+#include<sstream>
 
 using namespace std;
 
 /**
- * This class implements the caesar cipher.
+ * This class implements the PlayFair cipher.
  * The class extends the abstract class 
  * CipherInterface.
  */
 
-class Caesar: public CipherInterface
+class PlayfairCipher: public CipherInterface
 {
 	/** The public members **/
 	public:
@@ -39,11 +39,16 @@ class Caesar: public CipherInterface
 		 * @return - the plaintext
 		 */
 		virtual string decrypt(const string& ciphertext);
+
 		
 		/* The protected members */
 	protected:
-		int secretkey;
+        string secretKey;
+		char** matrix;
+		string coordinate[25];
+
 
 };
 
 #endif
+

@@ -5,7 +5,13 @@ using namespace std;
 
 
 bool Railfence :: setKey(const string& key)
-{
+{     
+    for (int i = 0; i< key.length(); i++)
+    {
+        if (!isdigit(key[i])){
+		  return false;
+        }
+    }
 
     int tempkey = stoi(key);
     secretkey = tempkey;

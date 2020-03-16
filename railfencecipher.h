@@ -1,5 +1,5 @@
-#ifndef RAILFENCECIPHER.H
-#define RAILFENCECIPHER.H
+#ifndef RAILFENCECIPHER_H
+#define RAILFENCECIPHER_H
 
 #include <iostream>
 #include <string>

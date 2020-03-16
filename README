@@ -1,4 +1,3 @@
-
 – Names and email addresses of all partners.
 Michael Rozsypal mrozsypal@csu.fullerton.edu
 Ethan Letrong letronge@csu.fullerton.edu
@@ -30,6 +29,3 @@ No extra credit
 – Anything special about your submission that we should take note of.
 The Playfair cipher may cause a seg fault out of bounds error if run with large amounts of text but if the process
 is run multiple times it will produce the correct output
-
-
-

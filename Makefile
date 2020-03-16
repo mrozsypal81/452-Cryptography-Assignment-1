@@ -1,13 +1,13 @@
 all:	cipher
 
-cipher:	cipher.o  RowTransposition.o vigenerecipher.o caesarcipher.o railfencecipher.o
-	g++ cipher.o  RowTransposition.o vigenerecipher.o caesarcipher.o railfencecipher.o -o cipher
+cipher:	cipher.o  PlayfairCipher.o RowTransposition.o vigenerecipher.o caesarcipher.o railfencecipher.o 
+	g++ cipher.o  PlayfairCipher.o RowTransposition.o vigenerecipher.o caesarcipher.o railfencecipher.o  -o cipher
 
 cipher.o:	cipher.cpp
 	g++ -g -c cipher.cpp 
 
-#Playfair.o:	Playfair.h CipherInterface.h
-#	g++ -g -c Playfair.h
+PlayfairCipher.o:	PlayfairCipher.cpp PlayfairCipher.h CipherInterface.h
+	g++ -g -c PlayfairCipher.cpp
 
 RowTransposition.o:	RowTransposition.cpp RowTransposition.h CipherInterface.h
 	g++ -g -c RowTransposition.cpp

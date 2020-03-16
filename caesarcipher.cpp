@@ -6,7 +6,13 @@
 using namespace std;
 
 bool Caesar::setKey(const string& key)
-{
+{     
+    for (int i = 0; i< key.length(); i++)
+    {
+	    if (!isdigit(key[i])){
+		    return false;
+        }
+    }
     int keytemp = stoi(key);
 
     //cout << "key is a number" << key << endl;

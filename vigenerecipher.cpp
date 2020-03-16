@@ -83,7 +83,13 @@ string Vigenere::decrypt(const string& input)
 }
 
 bool Vigenere::setKey(const string& key){
-	secretkey = key;
+    for (int i = 0; i< key.length(); i++)
+    {
+        if (isdigit(key[i])){
+		  return false;
+        }
+    }
+    secretkey = key;
     //cout << "setting key" << endl;
         //transforms the key to lowercase
     transform(secretkey.begin(),secretkey.end(),secretkey.begin(), ::tolower);

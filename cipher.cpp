@@ -1,11 +1,10 @@
 #include <string>
 #include "CipherInterface.h"
-#include "Playfair.h"
 #include "RowTransposition.h"
 #include "vigenerecipher.h"
 #include "railfencecipher.h"
 #include "caesarcipher.h"
-#include "Playfair.h"
+#include "PlayfairCipher.h"
 #include <iostream>
 #include <fstream>
 
@@ -39,6 +38,7 @@ infile.close();
 //Playfair
 if(ciphername == "PLF"){
 	CipherInterface* cipher = new PlayfairCipher();
+	cout << "Making a new Playfair" << endl;
 	
 	/* Error checks */
 	if(!cipher)
@@ -49,19 +49,25 @@ if(ciphername == "PLF"){
 	}
 	
 	/* Set the encryption key */
+	cout << "setting the key" << endl;
 	cipher->setKey(keyinput);
+	cout << "key should be set" << endl;
 	
 	if(functype == "ENC")
 	{
 	cout << "doing encryption1" << endl;
+	cout << userinput << endl;
 	/* Perform encryption */
 	userinput = cipher->encrypt(userinput);
+	cout << userinput << endl;
+	cout << "after encryption1" << endl;
 	}
 	if(functype == "DEC")
 	{
 	/* Perform decryption */
 	userinput = cipher->decrypt(userinput);
 	}
+
 }
 //Row transposition
 if(ciphername == "RTS"){
