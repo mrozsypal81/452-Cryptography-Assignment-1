@@ -28,7 +28,8 @@ where
 – Whether you implemented the extra credit.
 No extra credit
 – Anything special about your submission that we should take note of.
-None
+The Playfair cipher may cause a seg fault out of bounds error if run with large amounts of text but if the process
+is run multiple times it will produce the correct output
 
 
 
